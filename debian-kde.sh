@@ -17,6 +17,7 @@
 
 # Default packages are for the configuration and corresponding .config folders
 # Install packages after installing base Debian with no GUI
+# My recommended theme for kde is Lavanda
 
 echo
 echo "****************************************************"
@@ -60,10 +61,10 @@ echo
 echo
 echo
 echo "*********************************************************"
-echo "****  Installing Tilix terminal from Debian Stable   ****"
+echo "****  Installing Yakuake terminal from Debian Stable   ****"
 echo
 # Terminal (eg. terminator,kitty,xfce4-terminal)
-sudo apt install -yy tilix
+sudo apt install -yy yakuake
 echo
 echo
 echo "************************************************"
@@ -75,71 +76,41 @@ sudo systemctl enable avahi-daemon
 echo
 echo
 echo "********************************************************"
-echo "****  Installing Neofetch/Htop from Debian Stable   ****"
+echo "****  Installing Neofetch/Htop from Debian and lavanda theme Stable   ****"
 echo
 # Neofetch/HTOP
 sudo apt install -yy neofetch htop
-echo
-echo
-echo "**********************************************"
-echo "****  Installing Exa from Debian Stable   ****"
-echo
-# EXA installation
-# replace ls command in .bashrc file with line below
-# alias ls='exa -al --long --header --color=always --group-directories-first' 
-sudo apt install -yy exa
-echo
-echo
-echo "********************************************"
-echo "****  Installing CUPS from Debian Stable   ****"
-echo
-# Printing and bluetooth (if needed)
-sudo apt install cups simple-scan -yy
-sudo systemctl enable cups
+https://github.com/vinceliuice/Lavanda-kde.git
+cd Lavanda-kde
+sudo ./install.sh
 echo
 echo
 echo "***********************************************"
-echo "****  Installing Firefox from Debian Stable   ****"
+echo "****  Installing Google Chrome and spotify using non-free Repository   ****"
 echo
 # Browser Installation (eg. chromium)
-sudo apt install firefox-esr -yy
+wget -qO - https://dl.google.com/linux/linux_signing_key.pub | sudo gpg --dearmor -o /usr/share/keyrings/googlechrome-linux-keyring.gpg
+echo "deb [arch=amd64 signed-by=/usr/share/keyrings/googlechrome-linux-keyring.gpg] http://dl.google.com/linux/chrome/deb/ stable main" | sudo tee /etc/apt/sources.list.d/google-chrome.list
+curl -sS https://download.spotify.com/debian/pubkey_5E3C45D7B312C643.gpg | gpg --dearmor | sudo tee /usr/share/keyrings/spotify.gpg
+echo "deb [signed-by=/usr/share/keyrings/spotify.gpg] http://repository.spotify.com stable non-free" | sudo tee /etc/apt/sources.list.d/spotify.list
+sudo apt update
+sudo apt install google-chrome-stable
+sudo apt install spotify-client
 echo
 echo "****************************************************************************"
-echo "****  Installing Compression, Gedit and OpenVPN Tools from Debian Stable   ****"
+echo "****  Installing Favourite Apps from Debian Stable   ****"
 echo
 # Packages needed after installation
-sudo apt install unzip file-roller gedit network-manager-openvpn-gnome -yy
+sudo apt install discord telegram-desktop vlc lutris steam obs-studio -yy
 echo
 echo
-echo "************************************************"
-echo "****  Installing Fonts from Debian Stable   ****"
-echo
-# Install fonts
-sudo apt install fonts-font-awesome fonts-ubuntu fonts-liberation2 fonts-liberation fonts-terminus  -yy
-
-
-echo
-# Create folders in user directory (eg. Documents,Downloads,etc.)
-xdg-user-dirs-update
-
-
 echo "******************************************************"
-echo "****  Installing Lightdm Console Manager from Debian Stable   ****"
+echo "****  Installing sddm from Debian Stable   ****"
 echo
 echo
 # Install Lightdm Console Display Manager
-sudo apt install -y lightdm lightdm-gtk-greeter-settings slick-greeter
-sudo systemctl enable lightdm
-echo
-echo "****  Installing Sample Themes and Icons from Debian Stable   ****"
-echo
-sudo apt install numix-icon-theme numix-gtk-theme dmz-cursor-theme -yy
-echo
-echo "****  Installing Nerdfonts from Github   ****"
-echo
-# Install Nerd Fonts
-source ~/debian-installers/nerdfonts.sh
-
+sudo apt install -y sddm
+sudo systemctl enable sddm
 echo
 echo "***************************************************"
 echo "****  Adding Debian unstable/sid to apt list   ****"
@@ -172,19 +143,11 @@ echo "****  Add Latest Kernel from Debian Sid  ****"
 echo
 sudo apt update -yy && sudo apt upgrade -yy
 echo
-echo "**********************************************"
-echo "****  Installing Thunar from Debian Sid   ****"
-echo
-# you may want to sub nemo but takes a lot more packages
-sudo apt install -t unstable thunar -yy
-echo
-echo
 echo "******************************************************"
-echo "****  Installing Budgie Desktop from Debian Sid   ****"
+echo "****  Desktop env. selecting using tasksel   ****"
 echo
-sudo apt install -t unstable budgie-desktop -yy
-sudo apt install -t unstable budgie-indicator-applet -yy
-sudo apt install -t unstable gnome-control-center -yy
+sudo apt install tasksel -y
+sudo tasksel
 echo
 echo
 echo
