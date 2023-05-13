@@ -104,14 +104,6 @@ echo
 sudo apt install discord telegram-desktop vlc lutris steam obs-studio -yy
 echo
 echo
-echo "******************************************************"
-echo "****  Installing sddm from Debian Stable   ****"
-echo
-echo
-# Install Lightdm Console Display Manager
-sudo apt install -y sddm
-sudo systemctl enable sddm
-echo
 echo "***************************************************"
 echo "****  Adding Debian unstable/sid to apt list   ****"
 echo
